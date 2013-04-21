@@ -308,6 +308,11 @@ top: -150px;
 					background:white;
 				}
 
+.navbar ul li:hover {
+					background:grey;
+				}
+
+
 .card .icon	 	{	float: right;
 					font-weight: bold;
 					background: url(../images/sprites.png) no-repeat;
