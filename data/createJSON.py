@@ -17,15 +17,17 @@ def createJSONfile():
 	jsonList=[]
 	for windLine, solarLine, popData in izip(windDataFile, solarDataFile, popDataFile):
 
-		windList=windLine.split(" ")
-		solarList=solarLine.split(" ")
+		windList=windLine.strip().split(" ")
+		solarList=solarLine.strip().split(" ")
 
 		if(testValidCoords(windList[0],windList[1],popData)):
 			currDict=generateJSON(windList, solarList, popData.strip())
 			jsonList.append(currDict)
 
 	outFile=open("data.json","w")
-	outFile.write(json.dumps(jsonList).replace(" ",""))
+	
+	for line in jsonList:
+		outFile.write(json.dumps(line).replace(" ","")+"\n")
 
 def testValidCoords(lat, long, popData):
 	if(int(popData)>5):
@@ -94,12 +96,22 @@ def generateJSON(windList, solarList, popData):
 	coordinates=[[int(windList[0]),int(windList[1])],[int(windList[0])+1,int(windList[1])],
 				 [int(windList[0])+1,int(windList[1])+1],[int(windList[0]),int(windList[1])+1]]
 
+	#remove lat and long
+	windList.pop(0)
+	windList.pop(0)
+	latitude=solarList.pop(0)
+	longitude=solarList.pop(0)
+
 	windDict={"value":windList,"units":"m/s"}
 	solarDict={"value":solarList,"units":"kWh/m^2/day"}
 	geoDict={"type":"Polygon","coordinates":coordinates}
+
+	if int(popData)<0:
+		popData=0
+
 	popDict={"value":popData,"units":"people/km^2"}
 
-	propertiesDict={"lat":windList[0],"long":windList[1],
+	propertiesDict={"lat":latitude,"long":longitude,
 					"wind":windDict,"solar":solarDict,"popDense":popDict,"geometry":geoDict}
 
 	jsonDict={ "id":id,
