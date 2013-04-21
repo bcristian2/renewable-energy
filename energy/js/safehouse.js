@@ -45,6 +45,7 @@ $(document).ready(function() {
 		    popupAnchor:  [15, 0] // point from which the popup should open relative to the iconAnchor
 		});
 
+		new L.marker([markLat, markLong], {icon: greenIcon}).addTo(map);
 		var marker = L.marker([markLat, markLong], {icon: greenIcon}).addTo(map);
 		var circle = L.circleMarker([markLat, markLong], 1000, {
 			color: 'red',
