@@ -82,7 +82,7 @@ $(document).ready(function() {
 		    marker.setLatLng(e.latlng);
 		    marker.update();
 
-		    map.setView(e.latlng, 3);
+		    map.setView(e.latlng, 5);
 		    circle.setLatLng(e.latlng);
 		});
 
