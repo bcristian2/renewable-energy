@@ -16,10 +16,10 @@ socket.on("request", function(data){
 				}
 
 				var R = 6371; // km
-				var dLat = (data['latitude']-position.coords.latitude).toRad();
-				var dLon = (data['longitude']-position.coords.longitude).toRad();
-				var lat1 = position.coords.latitude.toRad();
-				var lat2 = data['latitude'].toRad();
+				var dLat = (data['latitude']-position.coords.latitude)*Math.PI/180;
+				var dLon = (data['longitude']-position.coords.longitude)*Math.PI/180;
+				var lat1 = position.coords.latitude*Math.PI/180;
+				var lat2 = data['latitude']*Math.PI/180;
 				console.log("mid");
 				var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
 				        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
@@ -47,8 +47,11 @@ function computeCardsHelp(data, distanceFromHome, realPlace)
 		
 		isOcean = data['ocean'];
 
+		var titleArr=realPlace[0].split(',');
+		var short_title=titleArr.slice(0,2);
+		var long_title=titleArr.slice(2,realPlace[0].length);
 
-		$(panel, '.title').text(realPlace[0]+" - Distance from home:"+distanceFromHome.toFixed(2));
+		$(panel, '.title').text("Tite1:"+short_title+" Title2:"+long_title+" - Distance from home:"+distanceFromHome.toFixed(2));
 
 		if (data['products']['solarPanels']) {
 			console.log("wind");

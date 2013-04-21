@@ -32,6 +32,7 @@ function reverseLookup(lat, lng, callback, data, distanceFromHome)
 			{
 				if(results[i])
 				{
+					console.log(results[i]);
 					list.push(results[i].formatted_address);
 					console.log(results[i].formatted_address);
 				}
