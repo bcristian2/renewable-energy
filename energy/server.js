@@ -4,6 +4,84 @@ var path = require('path'); //fs path related functionality
 var mime = require('mime'); //ability to derive a MIME type based on filename extension
 var cache = ""; //contents of cached files are stored
 
+
+//Given a JSON string from the server, determine the number of solar panels and wind turbines required 
+function findNumProducts(jsonStr){
+console.log("breakpoint");
+	var obj=eval("(" + jsonStr + ')');
+	solarMonths=obj["solar"]["value"];
+	windMonths=obj["wind"]["value"];
+
+	//minMonth is the lowest value of monthly values
+	var minMonth=0;
+	var minValue=parseFloat(solarMonths[0])+parseFloat(windMonths[0]);
+	for(var i=1; i<12; i++)
+	{
+		var currValue=parseFloat(solarMonths[0])+parseFloat(windMonths[0]);
+		if(currValue<minValue)
+		{
+			minMonth=i;
+			minValue=currValue;
+		}
+	}
+
+	minSolar=parseFloat(solarMonths[minMonth]);
+	minWind=parseFloat(windMonths[minMonth]);
+	var numSolarPanels=0;
+	var numWindTurbines=0;
+	if(minSolar==0)
+	{
+
+
+		//must calculate 335 using only wind
+		kwhPerWindTurbine=minWind*20;
+		powerGenerated=kwhPerWindTurbine*numWindTurbines;
+		while(powerGenerated<335)
+		{
+			numWindTurbines++;
+			powerGenerated=kwhPerWindTurbine*numWindTurbines;
+		}
+	}
+	else if(minWind==0)
+	{
+
+
+		//must calculate 335kWh using only solar
+		kwhPerSolarPanel=minSolar*30*1.66*0.15;
+		powerGenerated=kwhPerSolarPanel*numSolarPanels;
+		while(powerGenerated<355)
+		{
+			numSolarPanels++;
+			powerGenerated=kwhPerSolarPanel*numSolarPanels;
+		}
+	}
+	else
+	{
+
+
+		//Calculate, aiming for 167kWh from solar, 167kWh from wind
+		kwhPerWindTurbine=minWind*20;
+		powerGenerated=kwhPerWindTurbine*numWindTurbines;
+		while(powerGenerated<167)
+		{
+			numWindTurbines++;
+			powerGenerated=kwhPerWindTurbine*numWindTurbines;
+		}
+
+		kwhPerSolarPanel=minSolar*30*1.66*0.15;
+		powerGenerated=kwhPerSolarPanel*numSolarPanels;
+		while(powerGenerated<355)
+		{
+			numSolarPanels++;
+			powerGenerated=kwhPerSolarPanel*numSolarPanels;
+		}
+	}
+
+	var products={"solarPanels":numSolarPanels,"windTurbines":numWindTurbines};
+console.log("breakpoint");
+	return products;
+}
+
 function send404(response) {
 	response.writeHead(404, {'Content-Type': 'text/plain'});
 	response.write('Error 404: resource not found.');
@@ -90,6 +168,7 @@ new lazy(fs.createReadStream(file))
      }
  );
 */
+/*
 var file = "./closest.json";
 var closest=[];
 new lazy(fs.createReadStream(file))
@@ -102,6 +181,7 @@ new lazy(fs.createReadStream(file))
 
      }
 );
+*/
 //console.log("HI"+closest["44-79"]);
 
 //socket.io - set up communication between client/server
@@ -111,6 +191,7 @@ io.set('log level', 1);
 
 io.sockets.on('connection', function(socket){
 
+	/*
 	socket.on("dataRequest", function(location){
 		console.log("dataRequest for:"+location);
 		client.get(location, function (err, value){
@@ -125,42 +206,83 @@ io.sockets.on('connection', function(socket){
 
 
 	});
+*/
 
-	socket.on("reqest", function(location){
-		console.log("Data request for:"+location);
+	socket.on("request", function(location){
+		console.log("Data request for:"+location.latitude+","+location.longitude);
 
-		client.get(location, function(err,value){
-			var options={
+		var options={
 				hostname: 'api.geonames.org',
-				port: 80,
-				path: '/ocean?lat='+location.latitude+'&lng='+location.longitude+'&username=mtriff',
+			
+				path: '/oceanJSON?lat='+location.latitude+'&lng='+location.longitude+'&username=mtriff',
 				method: 'GET'
-			};
-
-			var req=http.request(options, function(res) {
+		}; 
+		console.log(options);
+		//api.geonames.org/oceanJSON?lat=46&lng=46&username=mtriff
+		var req=http.request(options, function(res) {
+				//console.log(res);
 				console.log('Status:'+res.statusCode);
 				res.setEncoding('utf8');
 				res.on('data', function (chunk){
-					if(chunk.indexOf('ocean')!=-1){
+					console.log("callback of res data");
+					console.log(chunk);
+					chunk = JSON.parse(chunk);
+
+					if(chunk["ocean"]){
 						socket.emit('request', false);
+					} else { //valid point, start get random valid location
+						var validPoint = new Object();
+
+						function getValidPoint(){
+							var random1 = Math.floor(Math.random()*10);
+							var random2 = Math.floor(Math.random()*10);
+							var latitude = location.latitude + random1;
+							var longitude = location.longitude + random2;
+							var locationID = String(latitude).concat(String(longitude));
+							console.log(locationID);
+
+							client.get(locationID, function(err, value){
+								if (err || !value) {
+									console.log("no data");
+									getValidPoint();
+								} else {
+									//valid point, parse stuff
+									console.log("validPoint");
+									console.log(value);
+									//value = JSON.parse(value);
+									var productsJSON = findNumProducts(value);
+									//socket.emit('request',true);
+									console.log(productsJSON);
+									var result = {
+										"id":locationID,
+										"latitude":latitude,
+										"longitude":longitude,
+										"products":{
+											"ocean":false,
+											"solarPanels":productsJSON["solarPanels"],
+											"windTurbines":productsJSON["windTurbines"]
+										}
+									};
+									socket.emit("request", result);
+								}
+							});
+						}
+						getValidPoint();
 					}
 
-					//while loop
-
 				});
-			})
 		});
+		req.addListener("response", function (data){
+			console.log("SUSCCSES");
+			console.log(data);
+		});
+		req.end();
+		
 	});
 });
 
 
-/*
-client.set('color', 'red', redis.print);
-client.get('color', function(err, value) {
-	if (err) throw err;
-	console.log('Got: ' + value);
-});
-*/
+
 
 
 

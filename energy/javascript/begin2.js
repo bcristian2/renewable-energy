@@ -1,107 +1,31 @@
 var socket = io.connect();
 
-//socket.emit("dataRequest", "-79-69");
-//socket.emit("closest", "-18160");
+socket.on("request", function(data){
+	console.log("cb: request:"+data);
+	// data=JSON.stringify(data);
 
-socket.on("dataRequest", function(data){
-	console.log("cb: dataRequest:"+data);
-	log.innerHTML=log.innerHTML.concat(data);
+	$('#mapInfo').filter(function(){
+		var panel = $(this);
+		console.log(reverse);
+		$(panel, '.title').text('geocoded name');
+		$(panel, '.details').text(JSON.stringify(data));
+		
+		numWind = data['products']['solarPanels'];
+		numSolar = data['products']['windTurbines'];
+
+		if (numWind) {
+			windCard = '<div class="turbine card"><span class="icon">x' + numWind + '</span><h3>Personal Wind Turbine</h3><p>Harness the power of the wind! Sharp blades are a bonus.</p></div>';
+			panel.append(windCard);
+		}
+
+		if (numSolar) {
+			solarCard = '<div class="solar card"><span class="icon">x' + numSolar + '</span><h3>Solar Panels</h3><p>Cheaper than wind turbines, but don\'t generate as much power.</p></div>';
+			panel.append(solarCard);
+		}
+
+		contextHeight = window.innerHeight;
+		panel.addClass('display').css('top', contextHeight).animate({
+			top: 300
+		}, 300, 'easeOutElastic');
+	})
 });
-
-socket.on("closest", function(data){
-	console.log("cb: closest:"+data);
-	log.innerHTML=log.innerHTML.concat(data);
-});
-
-
-
-//Given a JSON string from the server, determine the number of solar panels and wind turbines required 
-function findNumProducts(jsonStr){
-	var obj=eval("(" + jsonStr + ')');
-	solarMonths=obj["solar"]["value"];
-	windMonths=obj["wind"]["value"];
-
-	//minMonth is the lowest value of monthly values
-	var minMonth=0;
-	var minValue=parseFloat(solarMonths[0])+parseFloat(windMonths[0]);
-	for(var i=1; i<12; i++)
-	{
-		var currValue=parseFloat(solarMonths[0])+parseFloat(windMonths[0]);
-		if(currValue<minValue)
-		{
-			minMonth=i;
-			minValue=currValue;
-		}
-	}
-
-	minSolar=parseFloat(solarMonths[minMonth]);
-	minWind=parseFloat(windMonths[minMonth]);
-	var numSolarPanels=0;
-	var numWindTurbines=0;
-	if(minSolar==0)
-	{
-		//must calculate 335 using only wind
-		kwhPerWindTurbine=minWind*20;
-		powerGenerated=kwhPerWindTurbine*numWindTurbines;
-		while(powerGenerated<335)
-		{
-			numWindTurbines++;
-		}
-	}
-	else if(minWind==0)
-	{
-		//must calculate 335kWh using only solar
-		kwhPerSolarPanel=minSolar*30*1.66*0.15;
-		powerGenerated=kwhPerSolarPanel*numSolarPanels;
-		while(powerGenerated<355)
-		{
-			numSolarPanels++;
-		}
-	}
-	else
-	{
-		//Calculate, aiming for 167kWh from solar, 167kWh from wind
-		kwhPerWindTurbine=minWind*20;
-		powerGenerated=kwhPerWindTurbine*numWindTurbines;
-		while(powerGenerated<167)
-		{
-			numWindTurbines++;
-		}
-
-		kwhPerSolarPanel=minSolar*30*1.66*0.15;
-		powerGenerated=kwhPerSolarPanel*numSolarPanels;
-		while(powerGenerated<355)
-		{
-			numSolarPanels++;
-		}
-	}
-
-	var products={"solarPanels":numSolarPanels,"windTurbines":numWindTurbines};
-
-	return products;
-}
-
-
-//2
-function findClosestTo(latitude, longitude){
-	//round it off
-	//access database to get the closest location to use
-}
-
-function begin(latitude, longitude){
-	findClosestTo(latitude, longitude);
-	latitude = -79;
-	longitude =  -69;
-
-	grabData(latitude, longitude);
-}
-
-
-//take 2
-if ("geolocation" in navigator) {
-  navigator.geolocation.getCurrentPosition(function(position) {
-    //begin(position.coords.latitude, position.coords.longitude);
-  });
-} else {
-  alert("geolocation not in navigator");
-}
