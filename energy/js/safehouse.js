@@ -45,7 +45,16 @@ $(document).ready(function() {
 		    popupAnchor:  [15, 0] // point from which the popup should open relative to the iconAnchor
 		});
 
-		new L.marker([markLat, markLong], {icon: greenIcon}).addTo(map);
+		var userLocation = L.icon({
+			iconSize: 	[12, 12],
+			iconAnchor: [6, 6],
+			className: 	'userLocation',
+			iconUrl: 	'images/userLocation.png'
+		})
+
+		new L.marker([markLat, markLong], {icon: userLocation}).addTo(map);
+
+
 		var marker = L.marker([markLat, markLong], {icon: greenIcon}).addTo(map);
 		var circle = L.circleMarker([markLat, markLong], 1000, {
 			color: 'red',
@@ -212,8 +221,10 @@ $(document).ready(function() {
 			console.log("finalizelat:", center.lat);
 			console.log("finalizelng:", center.lng);
 
-			location.latitude  = Math.round(center.lat);
-			location.longitude = Math.round(center.lng);
+			//location.latitude  = Math.round(center.lat);
+			//location.longitude = Math.round(center.lng);
+			location.latitude = center.lat;
+			location.longitude = center.lng;
 			socket.emit("request", location);
 			
 		}

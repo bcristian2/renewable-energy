@@ -249,6 +249,19 @@ body {
 	display:none;
 }
 
+.leaflet-marker-icon.userLocation:before {
+					content: "";
+					display: block;
+					position: absolute;
+					background: rgba(255,255,255,0.3);
+					border: 2px solid #fff;
+					-webkit-animation: userLocation 5s infinite;
+				}
+@-webkit-keyframes userLocation {
+	0%		{ left: 0; top: 0; right: 0; bottom:0;}
+	100%	{ left: 20px; top: 20px; right: 20px; bottom: 20px; }
+}
+
 .overlay		{
 					position: absolute;
 					top:0;right: 0; bottom:0; left:0;
@@ -282,3 +295,19 @@ body {
 .navbar ul li {
 					background:white;
 				}
+
+.card .icon	 	{	float: right;
+					font-weight: bold;
+					background: url(../images/sprites.png) no-repeat;
+					height: 50px;
+					width: 50px;
+					background-size: 50px;
+					line-height: 120px;
+					text-align: right;
+					font-size: 15px;
+					margin: 20px 0;
+					font-weight: bold; color: #888;
+				}
+
+.solar.card .icon 	{ background-position: 8px -150px; }
+.turbine.card .icon	{ background-position: 8px -200px; }
