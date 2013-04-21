@@ -227,7 +227,7 @@ $(document).ready(function() {
 			var latitude = layer.latitude;
 			var longitude = layer.longitude;
 
-			var genInfo = '<p>'+latitude+', '+longitude+'</p>';
+			var genInfo = '<p>'+latitude+'E, '+longitude+'S</p>';
 
 			var ocean = layer.products.ocean;
 			if(ocean){

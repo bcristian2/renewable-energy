@@ -156,7 +156,7 @@ client.on('error', function(err) {
 
 //put information into database
 var lazy = require("lazy");
-/*
+
 var file = "./data.json";
 new lazy(fs.createReadStream(file))
 	.lines
@@ -166,7 +166,7 @@ new lazy(fs.createReadStream(file))
      	client.set(data["id"], value);
      }
  );
-*/
+
 /*
 var file = "./closest.json";
 var closest=[];
