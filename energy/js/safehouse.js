@@ -114,11 +114,13 @@ $(document).ready(function() {
 			//var grade = ((windValue + solarValue)/2);
 			//console.log(grade);
 		    return {
-		        fillColor: '#000',
-		        weight: 0,
-		        opacity: 1,
-		        color: '000',
-		        fillOpacity: .2
+		    	stroke: false,
+		        fillColor: '#2984b1',
+		    	color:'#2984b1',
+		    	weight:2,
+		    	dashArray: '3',
+		        opacity: 0.7,
+		        fillOpacity: .7
 		    };
 		}
 
@@ -129,9 +131,11 @@ $(document).ready(function() {
 		    var layer = e.target;
 		    info.update(layer.feature.properties);
 		    layer.setStyle({
-		        weight: 5,
-		        color: '#666',
-		        dashArray: '',
+		    	stroke: false,
+		    	color:'#FFFFFF',
+		        fillColor: '#FFF',
+		        weight:2,
+		        opacity: 0.7,
 		        fillOpacity: 0.0
 		    });
 
