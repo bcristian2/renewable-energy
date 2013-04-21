@@ -79,25 +79,18 @@ client.on('error', function(err) {
 
 //put information into database
 var lazy = require("lazy");
+/*
 var file = "./data.json";
 new lazy(fs.createReadStream(file))
 	.lines
     .forEach(function(line){
     	var data = JSON.parse(line);
      	var value = JSON.stringify(data["properties"]);
-
      	client.set(data["id"], value);
-     	//console.log(data["id"]);
-		/*
-		client.get(data["id"], function (err, value){
-			if (err) throw err;
-			var jsonData = JSON.parse(value);
-			console.log(jsonData);
-		}); */
      }
  );
-
-file = "./closest.json";
+*/
+var file = "./closest.json";
 var closest=[];
 new lazy(fs.createReadStream(file))
 	.lines
