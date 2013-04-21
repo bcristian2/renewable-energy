@@ -6,14 +6,16 @@ socket.on("request", function(data){
 
 	$('#mapInfo').filter(function(){
 		var panel = $(this);
-		console.log(data['products']);
+		console.log('PRODUCTS:',data['products']);
 		var realPlace=reverseLookup(data['latitude'],data['longitude']);
+		$(panel, '.details').text(JSON.stringify(data));
 		
-		isOcean = data['ocean']
+		isOcean = data['ocean'];
 
 		if (data['products']['solarPanels']) {
 			windCard = '<div class="turbine card"><span class="icon">x' + data['products']['solarPanels'] + '</span><h3>Personal Wind Turbine</h3><p>Harness the power of the wind! Sharp blades are a bonus.</p><p class="price">$329 - $1299</p></div>';
 			panel.append(windCard);
+			// console.log(windCard, panel);
 		}
 
 		if (data['products']['windTurbines']) {
@@ -30,12 +32,8 @@ socket.on("request", function(data){
 			top: 300
 		}, 300, 'easeOutElastic');
 
-		document.getElementById("map").style.marginTop = "-150px";
-		
-		// console.log('GIVE ME SOMETHING', realPlace,data['latitude'],data['longitude']);
-
-		$(panel, '.title').text(realPlace[0]);
-		$(panel, '.details').text(JSON.stringify(data));
+		$('#map').css('top',-200);
+		$('.overlay').addClass('focus');
 	});
 
 });
