@@ -1,7 +1,7 @@
 var socket = io.connect();
 
-socket.emit("dataRequest", "-79-69");
-socket.emit("closest", "-18160");
+//socket.emit("dataRequest", "-79-69");
+//socket.emit("closest", "-18160");
 
 socket.on("dataRequest", function(data){
 	console.log("cb: dataRequest:"+data);

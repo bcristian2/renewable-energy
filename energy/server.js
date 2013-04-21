@@ -96,10 +96,13 @@ new lazy(fs.createReadStream(file))
 	.lines
     .forEach(function(line){
     	var value = JSON.parse(line);
+    	//console.log(value);
     	//console.log(value["value"]);
-    	closest[value["value"]]= value["key"];
+    	closest[value["key"]]= value["value"];
+
      }
 );
+//console.log("HI"+closest["44-79"]);
 
 //socket.io - set up communication between client/server
 var socketio = require ('socket.io');
@@ -117,6 +120,7 @@ io.sockets.on('connection', function(socket){
 
 	socket.on("closest", function(location){
 		console.log("closest request for:"+location);
+		console.log(" is:"+closest[location]);
 		socket.emit("closest", closest[location]);
 
 

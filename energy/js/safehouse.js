@@ -261,7 +261,12 @@ $(document).ready(function() {
 
 			var center = map.getCenter();
 			console.log('finalizing coordinates at ', center);
-			map.setView(center, 5)
+			map.setView(center, 5);
+			var latitude  = Math.round(center.lat);
+			var longitude = Math.round(center.lng);
+			var location = String(latitude).concat(String(longitude));
+			console.log("finalize:"+location);
+			socket.emit("closest", location);
 		}
 
 	}
