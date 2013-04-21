@@ -7,7 +7,7 @@ var cache = ""; //contents of cached files are stored
 
 //Given a JSON string from the server, determine the number of solar panels and wind turbines required 
 function findNumProducts(jsonStr){
-console.log("breakpoint");
+
 	var obj=eval("(" + jsonStr + ')');
 	solarMonths=obj["solar"]["value"];
 	windMonths=obj["wind"]["value"];
@@ -78,7 +78,6 @@ console.log("breakpoint");
 	}
 
 	var products={"solarPanels":numSolarPanels,"windTurbines":numWindTurbines};
-console.log("breakpoint");
 	return products;
 }
 
@@ -217,15 +216,15 @@ io.sockets.on('connection', function(socket){
 				path: '/oceanJSON?lat='+location.latitude+'&lng='+location.longitude+'&username=mtriff',
 				method: 'GET'
 		}; 
-		console.log(options);
+		//console.log(options);
 		//api.geonames.org/oceanJSON?lat=46&lng=46&username=mtriff
 		var req=http.request(options, function(res) {
 				//console.log(res);
-				console.log('Status:'+res.statusCode);
+				//console.log('Status:'+res.statusCode);
 				res.setEncoding('utf8');
 				res.on('data', function (chunk){
-					console.log("callback of res data");
-					console.log(chunk);
+					//console.log("callback of res data");
+					//console.log(chunk);
 					chunk = JSON.parse(chunk);
 
 					if(chunk["ocean"]){

@@ -27,5 +27,8 @@ socket.on("request", function(data){
 		panel.addClass('display').css('top', contextHeight).animate({
 			top: 300
 		}, 300, 'easeOutElastic');
-	})
+
+		document.getElementById("map").style.marginTop = "-150px";
+	});
+
 });
