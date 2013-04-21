@@ -5,7 +5,51 @@
 	<title>bo0bs</title>
 	<link rel = "stylesheet" href="css/style.css" />	
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="js/fastclick.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+
+
+  <script src='/socket.io/socket.io.js' type='text/javascript'></script>
+  <script src="javascript/begin2.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+  <script type="text/javascript" src="js/countries.js"></script>
+
+  <script type="text/javascript" src="js/safehouse.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      window.addEventListener("load",function() {
+        $('.intro').height($(window).height()+50);
+        setTimeout(function(){
+          window.scrollTo(0, 1);
+        }, 0);
+      });
+
+      var makeWaves = function(count) {
+
+        if (count != 0) {
+          setTimeout(function() {
+            makeWaves(count-1);
+          }, 2000);
+        }
+        $('.sun').append('<span class="wave">');
+
+        return;
+      };
+      makeWaves(3);
+
+      $('.intro button').click(function(){
+        $(this).css({'background':'black', 'color':'white'});
+        var height = $('.intro').height();
+        $('.intro').animate({
+          'top': -height,
+          'opacity': 0
+        }, 1500, 'easeInOutQuint');
+      })
+    });
+  </script>
 </head>
 <body>
 	<div class="device-width">
@@ -14,46 +58,22 @@
 
         <img src="images/logo.png" alt="Safehouse" />
         <p>Got zombies? Go off the grid with natural energy.</p>
+<<<<<<< HEAD
         <button class="big" id="geolocateButton">Find Locations</button>
+=======
+        <button class="big" id="geolocateButton" onclick="geolocate()">Find Locations</button>
+>>>>>>> 98ce465047dbd73284608391e47c73238b1d0350
         <span class="house"></span>
       </section>
       <header class="navbar">
+        <img src="images/logo-small.png" alt="Safehousey" />
         <input type="search" placeholder="Search Places">
         <button class="cancel">Cancel</button>
-        <button class="done" type="submit" id="submitButton">Done</button>
       </header>
+
       <div id="map"></div>
     </div>
 	<p id="log"></p>
-
-<script src="http://code.jquery.com/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/fastclick.js"></script>
-
-
-<script src='/socket.io/socket.io.js' type='text/javascript'></script>
-<script src="javascript/begin2.js"></script>
-<script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
-<script type="text/javascript" src="js/countries.js"></script>
-
-<script type="text/javascript" src="js/safehouse.js"></script>
-
-<script>
-  $(document).ready(function(){
-    var makeWaves = function(count) {
-
-      if (count != 0) {
-        setTimeout(function() {
-          makeWaves(count-1);
-        }, 2000);
-      }
-      $('.sun').append('<span class="wave">');
-
-      return;
-    };
-    makeWaves(3);
-  });
-</script>
 
 </body>
 </html>

@@ -109,11 +109,11 @@ $(document).ready(function() {
 			//var grade = ((windValue + solarValue)/2);
 			//console.log(grade);
 		    return {
-		        fillColor: '#2292cc',
-		        weight: 2,
+		        fillColor: '#000',
+		        weight: 0,
 		        opacity: 1,
-		        color: '2292cc',
-		        fillOpacity: 0.3
+		        color: '000',
+		        fillOpacity: .2
 		    };
 		}
 
@@ -137,8 +137,9 @@ $(document).ready(function() {
 
 
 		function toggleDisplay(e) {
+			// alert(layer.feature.properties.name);
 			var layer = e.target;
-			console.log(layer.feature.properties.name);
+			console.log('HEY:'+layer.feature.properties.name);
 			var latitude = layer.feature.properties.latitude;
 			var longitude = layer.feature.properties.longitude;
 
@@ -159,6 +160,7 @@ $(document).ready(function() {
 			var solarInfo = "<b>Available Solar Energy:</b><br/>" + '<b class="value">Value:</b> ' + solarValue + " " + solarUnits;
 
 			var innerHTML = location + windInfo + solarInfo;
+			console.log(innerHTML);
 
 			var srcElement = document.getElementById('moreInfo');
 			var srcElement2 = document.getElementById('stateName');
