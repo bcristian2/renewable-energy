@@ -227,10 +227,11 @@ $(document).ready(function() {
 			var latitude = layer.latitude;
 			var longitude = layer.longitude;
 
+			var genInfo = '<p>'+latitude+', '+longitude+'</p>';
+
 			var ocean = layer.products.ocean;
 			if(ocean){
-				srcElement.innerHTML = '<div class="ocean card">Yo dawg you\'re in the ocean bro. That\'s kinda smart \'cause you\'re assuming they can\'t swim but boy are you ever wrong...</div>'
-				return;
+				srcElement.innerHTML = genInfo+'<div class="ocean card">Yo dawg you\'re in the ocean bro. That\'s kinda smart \'cause you\'re assuming they can\'t swim but boy are you ever wrong...</div>';
 			}
 			else {
 				var numSolar = layer.products.solarPanels;
@@ -246,7 +247,7 @@ $(document).ready(function() {
 				var windCard = '<div class="turbine card"><span class="icon"></span><h3>Personal Wind Turbine</h3><p>This shit will give you so much god damn energy it\'s just completely whack.</p>' + '<div class="count">x' + numWind + '</div></div>';
 				var solarCard = '<div class="solar card"><span class="icon"></span><h3>Personal Wind Turbine</h3><p>This shit will give you so much god damn energy it\'s just completely whack.</p>' + '<div class="count">x' + numSolar + '</div></div>';
 
-				srcElement = windCard + solarCard;
+				srcElement.innerHTML = genInfo + windCard + solarCard;
 			}
 
 		}
