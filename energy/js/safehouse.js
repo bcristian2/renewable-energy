@@ -6,7 +6,7 @@ $(document).ready(function() {
     var submitButton = document.getElementById('geolocateButton');
 	submitButton.addEventListener('click', geolocate, false);
 
-    function geolocate(ele) {
+    function geolocate() {
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				beginMap(position.coords.latitude, position.coords.longitude);
