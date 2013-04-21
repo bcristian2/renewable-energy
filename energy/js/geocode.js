@@ -20,7 +20,7 @@ function lookup(address)
 	})
 }
 
-function reverseLookup(lat, lng)
+function reverseLookup(lat, lng, callback, data, distanceFromHome)
 {
 	geocoder=new google.maps.Geocoder();
 	var latlng=new google.maps.LatLng(lat, lng);
@@ -36,7 +36,7 @@ function reverseLookup(lat, lng)
 					console.log(results[i].formatted_address);
 				}
 			}
-			return list;
+			callback(data, distanceFromHome, list);
 		}
 	})
 }
