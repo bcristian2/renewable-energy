@@ -41,6 +41,7 @@ function reverseLookup(lat, lng, callback, data, distanceFromHome)
 	})
 }
 
+
 function addToSearchList(address)
 {
 	geocoder=new google.maps.Geocoder();
