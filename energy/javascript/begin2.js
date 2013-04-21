@@ -42,9 +42,13 @@ function computeCardsHelp(data, distanceFromHome, realPlace)
 {
 		$('#mapInfo').filter(function(){
 		var panel = $(this);
-		console.log(data['products']);
-		console.log(panel);
-		isOcean = data['ocean']
+
+		console.log('PRODUCTS:',data['products']);
+		var realPlace=reverseLookup(data['latitude'],data['longitude']);
+		$(panel, '.details').text(JSON.stringify(data));
+		
+		isOcean = data['ocean'];
+
 
 		$(panel, '.title').text(realPlace[0]+" - Distance from home:"+distanceFromHome.toFixed(2));
 
@@ -52,6 +56,7 @@ function computeCardsHelp(data, distanceFromHome, realPlace)
 			console.log("wind");
 			windCard = '<div class="turbine card"><span class="icon">x' + data['products']['solarPanels'] + '</span><h3>Personal Wind Turbine</h3><p>Harness the power of the wind! Sharp blades are a bonus.</p><p class="price">$329 - $1299</p></div>';
 			panel.append(windCard);
+			// console.log(windCard, panel);
 		}
 
 		if (data['products']['windTurbines']) {
@@ -69,6 +74,8 @@ function computeCardsHelp(data, distanceFromHome, realPlace)
 			top: 300
 		}, 300, 'easeOutElastic');
 
+		$('#map').css('top',-200);
+		$('.overlay').addClass('focus');
 		document.getElementById("map").style.marginTop = "-150px";
 		
 		// console.log('GIVE ME SOMETHING', realPlace,data['latitude'],data['longitude']);
