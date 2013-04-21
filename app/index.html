@@ -2,16 +2,23 @@
 <html>
   <head>
     <title>Bootstrap 101 Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->
+
     <!-- Bootstrap -->
     <!-- <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
     <link href="css/mobile.css" rel="stylesheet" media="screen">
   </head>
   <body>
     <div class="device-width">
+      <section class="intro">
+        <img src="logo.png" alt="Safehouse" />
+        <p>Got zombies? Go off the grid with natural energy.</p>
+        <button class="big">Find Locations</button>
+      </section>
       <header class="navbar">
         <input type="search" placeholder="Search Places">
-         <button type="submit" class="btn">Done</button>
+        <button class="cancel">Cancel</button>
+        <button class="done" type="submit">Done</button>
       </header>
       <section class="map">
       </section>
@@ -19,5 +26,29 @@
     
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/fastclick.js"></script>
+    <script>
+      $(document).ready(function() {
+        window.addEventListener('load', function() {
+        new FastClick(document.body);
+        }, false);
+        // $('input[type="search"]').focus(function(){
+      //   var input = $(this),
+        //       cancel = $('.navbar .cancel');
+
+        //   input.animate({
+        //     left: 5,
+        //     right: cancel.width() + 50
+        //   }, {duration: 150, queue: false});
+
+        //   $('.navbar .done').fadeOut();
+        //   cancel.show().animate({
+        //     right: 5,
+        //     opacity: 1
+        //   }, { duration: 300, queue: false });
+        // });
+
+      });
+    </script>
   </body>
 </html>
