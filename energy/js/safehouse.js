@@ -3,16 +3,22 @@ $(document).ready(function() {
         new FastClick(document.body);
         }, false);
 
-	/*if ("geolocation" in navigator) {
-		navigator.geolocation.getCurrentPosition(function(position) {
-			beginMap(position.coords.latitude, position.coords.longitude);
-		});
-	} else {
-		alert("geolocation not in navigator");
-	}*/
+    var submitButton = document.getElementById('geolocateButton');
+	submitButton.addEventListener('click', geolocate, false);
+
+    function geolocate(ele) {
+		if ("geolocation" in navigator) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				beginMap(position.coords.latitude, position.coords.longitude);
+			});
+		} else {
+			alert("geolocation not in navigator");
+			beginMap(41,-81);
+		}
+	}
 
 	//used when geolocation is disabled
-	beginMap(41,-81);
+	//beginMap(41,-81);
 
 	function beginMap (latitude, longitude) {
 		var markLat = latitude;
