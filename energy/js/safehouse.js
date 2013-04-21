@@ -30,7 +30,7 @@ $(document).ready(function() {
 		var cloudmade = L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
 			attribution: 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
 			key: 'BC9A493B41014CAABB98F0471D759707',
-			styleId: 22677
+			styleId: 53589
 		}).addTo(map);
 
 
@@ -115,13 +115,12 @@ $(document).ready(function() {
 			//var grade = ((windValue + solarValue)/2);
 			//console.log(grade);
 		    return {
-		    	stroke: false,
 		        fillColor: '#2984b1',
 		    	color:'#2984b1',
 		    	weight:2,
 		    	dashArray: '3',
-		        opacity: 0.7,
-		        fillOpacity: .7
+		        opacity: 1,
+		        fillOpacity: 1
 		    };
 		}
 
@@ -132,13 +131,12 @@ $(document).ready(function() {
 		    var layer = e.target;
 		    info.update(layer.feature.properties);
 		    layer.setStyle({
-		    	stroke: false,
 		        fillColor: '#2984b1',
 		    	color:'#2984b1',
 		    	weight:2,
 		    	dashArray: '3',
-		        opacity: 0.7,
-		        fillOpacity: .7
+		        opacity: 1,
+		        fillOpacity: 1
 		    });
 
 		    if (!L.Browser.ie && !L.Browser.opera) {
