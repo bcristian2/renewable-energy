@@ -11,7 +11,7 @@ function lookup(address)
 			{
 				if(results[i])
 				{
-					console.log(results[i].formatted_address);
+					return results[i].formatted_address;
 				}
 			}
 		}
@@ -30,7 +30,7 @@ function reverse(lat, lng)
 			{
 				if(results[i])
 				{
-					console.log(results[i].formatted_address);
+					return results[i].formatted_address;
 				}
 			}			
 		}
