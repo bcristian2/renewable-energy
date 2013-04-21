@@ -72,9 +72,9 @@ function computeCardsHelp(data, distanceFromHome, realPlace)
 			top: 300
 		}, 300, 'easeOutElastic');
 
-		$('#map').css('top',-200);
+		$('#map').css('top',-280);
 		$('.overlay').addClass('focus');
-		document.getElementById("map").style.marginTop = "-150px";
+		// document.getElementById("map").style.marginTop = "-150px";
 		
 		// console.log('GIVE ME SOMETHING', realPlace,data['latitude'],data['longitude']);
 	console.log("DISTANCE!", distanceFromHome);
