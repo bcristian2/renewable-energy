@@ -1,0 +1,151 @@
+/* -----------------------------------------------------------------------------*/
+/* 0.CSS RESET
+/* -----------------------------------------------------------------------------*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 1;
+	font-weight: inherit;
+	font-style: inherit;
+	vertical-align: baseline;
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size:inherit;
+	color: inherit;
+}
+
+a, a:visited {
+	text-decoration: none;
+}
+
+:focus {
+	outline: 1;
+}
+
+body {
+	line-height: 1.4em;
+	color: #4d4d4d;
+	background: #eeeeee;
+	height: 100%;
+	width: 100%;
+
+}
+
+.clearFloat{
+	clear: both;
+}
+
+.left{
+	float: left;
+}
+
+.right{
+	float: right;
+}
+
+.hidden {
+	display:none;
+}
+
+.show {
+	display: block;
+}
+
+.navbar			{ 
+					height: 44px; 
+					display: block; 
+					background: rgba(41, 131, 177, 69);
+					box-shadow: 0 1px rgba(0,0,0,0.2);
+					z-index: 99;
+					width: 100%;
+				}
+.navbar input[type="search"]	{ 
+					height: 30px; padding: 7px; margin: 7px 5px; 
+					box-sizing: border-box; -webkit-appearance: none;
+					border-radius: 30px; border: 0;
+					font-size: 14px; font-family: inherit;
+					-webkit-transition: all .3s;
+					color: #fff; position: absolute;
+					left: 5px; right: 150px;
+					text-shadow: 0;
+					-webkit-tap-highlight-color: rgba(0,0,0,0); 
+					background: rgba(0,0,0,0.3) url(../img/sprites.png) 10px -264px no-repeat;
+					background-size: 50px;
+					padding-left: 30px;
+				}
+.navbar input[type="search"]:focus {
+					outline: none;
+					right: 70px; left: 5px;
+				}
+.navbar input[type="search"]:focus ~ .cancel 	{ 
+					opacity: 1;
+					right: 0px;
+				}
+.navbar input[type="search"]:focus ~ .done		{ opacity: 0; }
+.navbar button 	{
+					-webkit-appearance: none;
+					background: rgba(0,0,0,0.5);
+					border: 0;
+					color: #fff; font-size: 13px; font-weight: bold;
+					border-radius: 5px;
+					height: 30px;
+					font-family: inherit;
+					float: right;
+					margin: 7px 6px; padding: 5px 8px;
+					-webkit-font-smoothing: antialiased;
+					-webkit-transition: right .3s ease-in, opacity .3s;
+				}
+
+.navbar button:active {
+					background: rgba(0,0,0,1);
+				}
+.navbar .cancel	{ 
+					opacity: 0; position: absolute;
+					right: -40px;
+				}
+
+.navbar .done	{
+					background: #1387c3; border: 1px solid rgba(0,0,0, 0.5);
+					padding: 5px 12px;
+				}
+
+#map{ 
+	height: 300px; 
+	width:100%;
+	border-top: 1px solid #696969;
+	border-bottom: 1px solid #696969;
+	transition: height 2s;
+}
+
+.moreInfo {
+	position: absolute;
+	width: 190px;
+	height: 190px;
+	padding:5px;
+	background: #FFF;
+	border: 3px solid #000;
+	right: 0px;
+	top: 177px;
+	z-index: 1;
+}
+
+	.moreInfo .name {
+		font-weight: bold;
+	}
+
+.value {
+	margin-left: 10px;
+}
+
+.leaflet-container .leaflet-control-attribution, .leaflet-container .leaflet-control-scale {
+	display:none;
+}
+
