@@ -19,6 +19,7 @@ socket.on("request", function(data){
 				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 				distanceFromHome = R * c;
 		});
+	}
 
 	$('#mapInfo').filter(function(){
 		var panel = $(this);
