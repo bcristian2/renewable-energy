@@ -196,14 +196,18 @@ $(document).ready(function() {
 		function finalize(e) {
 
 			console.log("FINALIZE CALLED");
+			
 			var center = map.getCenter();
 			console.log('finalizing coordinates at ', center);
 			map.setView(center, 5);
-			var latitude  = Math.round(center.lat);
-			var longitude = Math.round(center.lng);
-			var location = String(latitude).concat(String(longitude));
-			console.log("finalize:"+location);
-			socket.emit("closest", location);
+			var location = new Object();
+			console.log("finalizelat:", center.lat);
+			console.log("finalizelng:", center.lng);
+
+			location.latitude  = Math.round(center.lat);
+			location.longitude = Math.round(center.lng);
+			socket.emit("request", location);
+			
 		}
 
 	}
