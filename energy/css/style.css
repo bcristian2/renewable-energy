@@ -27,7 +27,8 @@ input, button	{
 		-webkit-font-smoothing: antialiased;
 			}
 
-
+h2			{ font-size: 20px; font-family: inherit; font-weight: bold; color: #222;}
+h3			{ font-weight: bold; font-size: 15px; }
 button.big 		{	left: 50%;
 					position: relative;
 					margin-left: -150px;
@@ -155,7 +156,7 @@ body {
 					height: 44px; 
 					display: block; 
 					background: rgba(41, 131, 177, 0.7);
-					position:absolute;
+					position:fixed;
 					box-shadow: 0 1px rgba(0,0,0,0.2);
 					z-index: 99;
 					width: 100%;
@@ -218,11 +219,9 @@ body {
 				}
 
 #map{ 
-	height: 300px; 
+	height: 568px;
 	width:100%;
-	border-top: 1px solid #696969;
-	border-bottom: 1px solid #696969;
-	transition: height 2s;
+	position: fixed;
 }
 
 .moreInfo {
@@ -249,3 +248,32 @@ body {
 	display:none;
 }
 
+.overlay		{
+					position: absolute;
+					top:0;right: 0; bottom:0; left:0;
+					display:block;
+					background: rgba(0,0,0,0.5);
+					z-index:99;
+				}
+.mapInfo		{
+					position: absolute; display: block;
+					top: 300px; bottom: 0; left: 0; right: 0;
+					z-index: 100;
+					padding: 15px;
+					background: #efefef;
+					box-shadow: 0 -2px rgba(0,0,0,0.2);
+					height:500px;
+				}
+
+.mapInfo .card	{
+					border-radius: 4px;
+					background: white;
+					padding: 15px;
+					margin: 10px 0;
+					border: 1px solid #ccc;
+					box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+				}
+
+.mapInfo .card p {
+					font-weight: 13px
+				}
