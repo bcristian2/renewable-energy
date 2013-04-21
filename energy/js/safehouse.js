@@ -46,11 +46,14 @@ $(document).ready(function() {
 		});
 
 		var marker = L.marker([markLat, markLong], {icon: greenIcon}).addTo(map);
-		var circle = L.circle([markLat, markLong], 10000, {
-		    	color:'red',
-		    	fillColor:'#f03',
-		    	fillOpacity:0.5
-		    }).addTo(map);
+		var circle = L.circleMarker([markLat, markLong], 1000, {
+			color: 'red',
+			fillColor: '#f03',
+			fillOpacity: 0.5
+		}).addTo(map);
+
+		
+
 
 		L.geoJson(statesData, {style: style}).addTo(map);
 
@@ -81,7 +84,6 @@ $(document).ready(function() {
 
 		    map.setView(e.latlng, 3);
 		    circle.setLatLng(e.latlng);
-		    console.log(circle.getRadius());
 		});
 
 		map.on('dragstart', function(e) {
@@ -90,6 +92,7 @@ $(document).ready(function() {
 
 		map.on('drag', function(e) {
 			var center = map.getCenter();
+			circle.setLatLng(marker.getLatLng());
 			marker.setLatLng(center);
 		    marker.update();
 
@@ -97,6 +100,7 @@ $(document).ready(function() {
 
 		map.on('dragend', function(e) {
 			console.log("marker set to",marker.getLatLng());
+			circle.setLatLng(marker.getLatLng());
 			finalize();
 		});
 
@@ -208,6 +212,38 @@ $(document).ready(function() {
 			location.longitude = Math.round(center.lng);
 			socket.emit("request", location);
 			
+		}
+
+		function moreInfo(e) {
+			//fill innerHTML for mapInfo 
+			var srcElement = getElementById('mapInfo');
+
+			var layer = e.target;
+			var latitude = layer.latitude;
+			var longitude = layer.longitude;
+
+			var ocean = layer.products.ocean;
+			if(ocean){
+				srcElement.innerHTML = '<div class="ocean card">Yo dawg you\'re in the ocean bro. That\'s kinda smart \'cause you\'re assuming they can\'t swim but boy are you ever wrong...</div>'
+				return;
+			}
+			else {
+				var numSolar = layer.products.solarPanels;
+				var numWind = layer.products.windTurbines;
+
+
+				/*<div class="turbine card">
+		          <span class="icon"></span>
+		          <h3>Personal Wind Turbine</h3>
+		          <p>This shit will give you so much god damn energy it's just completely whack.</p>
+		          <div class="count">x3</div>
+		        </div>*/
+				var windCard = '<div class="turbine card"><span class="icon"></span><h3>Personal Wind Turbine</h3><p>This shit will give you so much god damn energy it\'s just completely whack.</p>' + '<div class="count">x' + numWind + '</div></div>';
+				var solarCard = '<div class="solar card"><span class="icon"></span><h3>Personal Wind Turbine</h3><p>This shit will give you so much god damn energy it\'s just completely whack.</p>' + '<div class="count">x' + numSolar + '</div></div>';
+
+				srcElement = windCard + solarCard;
+			}
+
 		}
 
 	}
