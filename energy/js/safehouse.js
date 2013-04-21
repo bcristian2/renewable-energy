@@ -133,11 +133,12 @@ $(document).ready(function() {
 		    info.update(layer.feature.properties);
 		    layer.setStyle({
 		    	stroke: false,
-		    	color:'#FFFFFF',
-		        fillColor: '#FFF',
-		        weight:2,
+		        fillColor: '#2984b1',
+		    	color:'#2984b1',
+		    	weight:2,
+		    	dashArray: '3',
 		        opacity: 0.7,
-		        fillOpacity: 0.0
+		        fillOpacity: .7
 		    });
 
 		    if (!L.Browser.ie && !L.Browser.opera) {
