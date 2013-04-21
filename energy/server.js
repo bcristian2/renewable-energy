@@ -24,14 +24,14 @@ console.log("breakpoint");
 			minValue=currValue;
 		}
 	}
-console.log("breakpoint");
+
 	minSolar=parseFloat(solarMonths[minMonth]);
 	minWind=parseFloat(windMonths[minMonth]);
 	var numSolarPanels=0;
 	var numWindTurbines=0;
 	if(minSolar==0)
 	{
-		console.log("breakpointminsolar");
+
 
 		//must calculate 335 using only wind
 		kwhPerWindTurbine=minWind*20;
@@ -44,7 +44,7 @@ console.log("breakpoint");
 	}
 	else if(minWind==0)
 	{
-		console.log("breakpointminwind");
+
 
 		//must calculate 335kWh using only solar
 		kwhPerSolarPanel=minSolar*30*1.66*0.15;
@@ -57,7 +57,7 @@ console.log("breakpoint");
 	}
 	else
 	{
-		console.log("breakpointelse");
+
 
 		//Calculate, aiming for 167kWh from solar, 167kWh from wind
 		kwhPerWindTurbine=minWind*20;
