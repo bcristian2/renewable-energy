@@ -128,6 +128,32 @@ io.sockets.on('connection', function(socket){
 
 
 	});
+
+	socket.on("reqest", function(location){
+		console.log("Data request for:"+location);
+
+		client.get(location, function(err,value){
+			var options={
+				hostname: 'api.geonames.org',
+				port: 80,
+				path: '/ocean?lat='+location.latitude+'&lng='+location.longitude+'&username=mtriff',
+				method: 'GET'
+			};
+
+			var req=http.request(options, function(res) {
+				console.log('Status:'+res.statusCode);
+				res.setEncoding('utf8');
+				res.on('data', function (chunk){
+					if(chunk.indexOf('ocean')!=-1){
+						socket.emit('request', false);
+					}
+
+					//while loop
+
+				});
+			})
+		});
+	});
 });
 
 
