@@ -181,7 +181,7 @@ $(document).ready(function() {
 			//minMonth is the lowest value of monthly values
 			var minMonth=0;
 			var minValue=parseFloat(solarMonths[0])+parseFloat(windMonths[0]);
-			for(var i=1, i<12, i++)
+			for(var i=1; i<12; i++)
 			{
 				var currValue=parseFloat(solarMonths[0])+parseFloat(windMonths[0]);
 				if(currValue<minValue)
