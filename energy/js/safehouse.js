@@ -212,6 +212,27 @@ $(document).ready(function() {
 
 	}
 
-      
+	function goToPlace(address)
+	{
+		geocoder=new google.maps.Geocoder();
+		geocoder.geocode({'address':address}, function(results, status){
+			if(status==google.maps.GeocoderStatus.OK)
+			{
+				if(results[0])
+				{
+					console.log("Going to address:"+address);
+					marker.setLatLng(results[0].geometry.location);
+					marker.update();
+					finalize();
+				}
+			}
+		});
+	}
+     
+
+    function getMarkerPosition()
+    {
+    	return marker.getLatLng();
+    } 
 });
 

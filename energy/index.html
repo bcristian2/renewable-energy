@@ -17,6 +17,9 @@
 
   <script type="text/javascript" src="js/safehouse.js"></script>
 
+  <script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDKB_f1DKUQ1jmJzDpDkGqIkbaWJi8VNEk&sensor=false'></script>
+  <script type="text/javascript" src="js/geocode.js"></script>
+
   <script>
     $(document).ready(function(){
       window.addEventListener("load",function() {
@@ -87,7 +90,8 @@
       </section>
       <header class="navbar">
         <img src="images/logo-small.png" alt="Safehousey" />
-        <input type="search" placeholder="Search Places">
+        <input type="search" id="searchbox" placeholder="Search Places" onblur="document.getElementById('searchList').innerHTML=''" onfocus="addToSearchList(document.getElementById('searchbox').value)" onkeypress="addToSearchList(document.getElementById('searchbox').value)">
+        <ul id="searchList"></ul>
         <button class="cancel">Cancel</button>
       </header>
 
