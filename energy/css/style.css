@@ -121,6 +121,7 @@ body {
 					z-index: 100;
 					border-bottom: 10px solid white;
 					box-shadow: 0 3px 5px rgba(0,0,0,0.3);
+					overflow:hidden;
 				}
 
 .intro img 		{
