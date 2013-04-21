@@ -170,8 +170,8 @@ $(document).ready(function() {
 			}
 		}
 
-<<<<<<< HEAD
-=======
+// <<<<<<< HEAD
+// =======
 		//Given a JSON string from the server, determine the number of solar panels and wind turbines required 
 		function findNumProducts(jsonStr){
 			var obj=eval("(" + jsonStr + ')');
@@ -239,7 +239,7 @@ $(document).ready(function() {
 		}
 
 
->>>>>>> a2715e3562e4a785adf9f7ac305bf78cdf35176c
+// >>>>>>> a2715e3562e4a785adf9f7ac305bf78cdf35176c
 		function resetHighlight(e) {
 		    geojson.resetStyle(e.target);
 		    info.update();
