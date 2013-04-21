@@ -46,11 +46,14 @@ $(document).ready(function() {
 		});
 
 		var marker = L.marker([markLat, markLong], {icon: greenIcon}).addTo(map);
-		var circle = L.circle([markLat, markLong], 10000, {
-		    	color:'red',
-		    	fillColor:'#f03',
-		    	fillOpacity:0.5
-		    }).addTo(map);
+		var circle = L.circleMarker([markLat, markLong], 1000, {
+			color: 'red',
+			fillColor: '#f03',
+			fillOpacity: 0.5
+		}).addTo(map);
+
+		
+
 
 		L.geoJson(statesData, {style: style}).addTo(map);
 
@@ -81,7 +84,6 @@ $(document).ready(function() {
 
 		    map.setView(e.latlng, 3);
 		    circle.setLatLng(e.latlng);
-		    console.log(circle.getRadius());
 		});
 
 		map.on('dragstart', function(e) {
@@ -90,6 +92,7 @@ $(document).ready(function() {
 
 		map.on('drag', function(e) {
 			var center = map.getCenter();
+			circle.setLatLng(marker.getLatLng());
 			marker.setLatLng(center);
 		    marker.update();
 
@@ -97,6 +100,7 @@ $(document).ready(function() {
 
 		map.on('dragend', function(e) {
 			console.log("marker set to",marker.getLatLng());
+			circle.setLatLng(marker.getLatLng());
 			finalize();
 		});
 
