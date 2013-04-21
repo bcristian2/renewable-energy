@@ -20,7 +20,7 @@ function lookup(address)
 	})
 }
 
-function reverse(lat, lng)
+function reverseLookup(lat, lng)
 {
 	geocoder=new google.maps.Geocoder();
 	var latlng=new google.maps.LatLng(lat, lng);

@@ -207,7 +207,11 @@ io.sockets.on('connection', function(socket){
 	});
 */
 
-	socket.on("request", function(location){
+	socket.on("request", function(original){
+		var location = new Object();
+		location.latitude = Math.round(original.latitude);
+		location.longitude = Math.round(original.longitude);
+
 		console.log("Data request for:"+location.latitude+","+location.longitude);
 
 		var options={
@@ -254,13 +258,13 @@ io.sockets.on('connection', function(socket){
 									console.log(productsJSON);
 									var result = {
 										"id":locationID,
-										"latitude":latitude,
-										"longitude":longitude,
+										"latitude":original.latitude,
+										"longitude":original.longitude,
 										"products":{
 											"ocean":false,
 											"solarPanels":productsJSON["solarPanels"],
 											"windTurbines":productsJSON["windTurbines"]
-										}
+										},
 									};
 									socket.emit("request", result);
 								}
