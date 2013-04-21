@@ -44,8 +44,6 @@ function computeCardsHelp(data, distanceFromHome, realPlace)
 		var panel = $(this);
 
 		console.log('PRODUCTS:',data['products']);
-		var realPlace=reverseLookup(data['latitude'],data['longitude']);
-		$(panel, '.details').text(JSON.stringify(data));
 		
 		isOcean = data['ocean'];
 
