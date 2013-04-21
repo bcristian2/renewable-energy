@@ -5,14 +5,17 @@
 	<title>bo0bs</title>
 	<link rel = "stylesheet" href="css/style.css" />	
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
-
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 </head>
 <body>
 	<div class="device-width">
       <section class="intro">
+        <span class="sun"></span>
+
         <img src="images/logo.png" alt="Safehouse" />
         <p>Got zombies? Go off the grid with natural energy.</p>
         <button class="big" id="geolocateButton" onclick="geolocate("aaa")">Find Locations</button>
+        <span class="house"></span>
       </section>
       <header class="navbar">
         <input type="search" placeholder="Search Places">
@@ -35,6 +38,22 @@
 
 <script type="text/javascript" src="js/safehouse.js"></script>
 
+<script>
+  $(document).ready(function(){
+    var makeWaves = function(count) {
+
+      if (count != 0) {
+        setTimeout(function() {
+          makeWaves(count-1);
+        }, 2000);
+      }
+      $('.sun').append('<span class="wave">');
+
+      return;
+    };
+    makeWaves(3);
+  });
+</script>
 
 </body>
 </html>
