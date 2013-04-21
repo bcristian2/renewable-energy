@@ -43,14 +43,16 @@
       makeWaves(3);
 
       $('.intro button').click(function(){
-        $(this).css({'background':'black', 'color':'white'});
+        $(this).addClass('active');
         var height = $('.intro').height();
-        $('.intro').animate({
+        $('.intro').delay(1000).animate({
           'top': -height,
           'opacity': 0
         }, 1500, 'easeInOutQuint', function(){
           $(this).hide();
         });
+     
+
       })
 
       $('.userLocation').insertAfter('<span class="userLocationDisk"></span>');

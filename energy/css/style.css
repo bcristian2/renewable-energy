@@ -49,6 +49,10 @@ button.big:active	{
 					color: #fff;
 				}
 
+button.big.active	{
+					color: #fff; background: #000 url(../images/spinner_32_w.gif) 250px center no-repeat;
+				}
+
 .sun		{	display: block;
 				height: 50px;
 				width: 50px;
@@ -182,29 +186,30 @@ body {
 					padding-left: 30px;
 				}
 .navbar input[type="search"]:focus {
-					background: #000;
+					background-color: #000;
 					outline: none;
-					right: 70px; left: 5px;
+					right: 80px; left: 5px;
 				}
 
 .navbar input[type="search"]:focus ~ .cancel 	{ 
 					opacity: 1;
 					right: 0px;
 				}
-.navbar input[type="search"]:focus ~ .done		{ opacity: 0; }
+.navbar input[type="search"]:focus ~ #searchList		{ display: block; }
 .navbar button 	{
 					-webkit-appearance: none;
 					background: rgba(0,0,0,0.5);
 					border: 0;
 					color: #fff; font-size: 13px; font-weight: bold;
 					border-radius: 5px;
-					height: 30px;
+					height: 30px; top: 0;
 					font-family: inherit;
 					float: right;
 					margin: 7px 6px; padding: 5px 8px;
 					-webkit-font-smoothing: antialiased;
 					-webkit-transition: right .3s ease-in, opacity .3s;
 				}
+
 
 .navbar button:active {
 					background: rgba(0,0,0,1);
@@ -228,21 +233,6 @@ top: -150px;
 
 }
 
-.moreInfo {
-	position: absolute;
-	width: 190px;
-	height: 190px;
-	padding:5px;
-	background: #FFF;
-	border: 3px solid #000;
-	right: 0px;
-	top: 177px;
-	z-index: 1;
-}
-
-	.moreInfo .name {
-		font-weight: bold;
-	}
 
 .value {
 	margin-left: 10px;
@@ -289,7 +279,9 @@ top: -150px;
 					background: #efefef;
 					box-shadow: 0 -2px rgba(0,0,0,0.2);
 					height:500px;
+					opacity: 0;
 				}
+.mapInfo.display { opacity: 1;}
 
 .mapInfo .card	{
 					border-radius: 4px;
@@ -304,12 +296,17 @@ top: -150px;
 					font-weight: 13px
 				}
 
+.mapInfo .stats	{position: absolute;
+top: -50px;
+width: 100%;}
+.mapInfo .stats p {color: #fff;
+font-size: 40px;
+text-align: right;
+margin: 0 20px;}
+.mapInfo .stats p small {font-size: 22px;}
+
 .navbar ul li {
 					background:white;
-				}
-
-.navbar ul li:hover {
-					background:grey;
 				}
 
 
@@ -328,3 +325,17 @@ top: -150px;
 
 .solar.card .icon 	{ background-position: 8px -150px; }
 .turbine.card .icon	{ background-position: 8px -200px; }
+
+#searchList		{
+					min-height:500px;
+					position: relative;
+					top: -5px;
+					background: rgba(0,0,0,0.5);
+					display: none;
+}
+
+#searchList	li	{	min-height: 40px; line-height: 40px; 
+					font-size: 18px; border-bottom: 1px solid #aaa;
+					box-sizing: border-box; padding: 5px 10px;
+
+				}

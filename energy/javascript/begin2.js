@@ -40,7 +40,7 @@ function computeCards(data, distanceFromHome)
 
 function computeCardsHelp(data, distanceFromHome, realPlace)
 {
-		$('#mapInfo').filter(function(){
+	$('#mapInfo').filter(function(){
 		var panel = $(this);
 
 		console.log('PRODUCTS:',data['products']);
@@ -51,7 +51,9 @@ function computeCardsHelp(data, distanceFromHome, realPlace)
 		var short_title=titleArr.slice(0,2);
 		var long_title=titleArr.slice(2,realPlace[0].length);
 
-		$(panel, '.title').text("Tite1:"+short_title+" Title2:"+long_title+" - Distance from home:"+distanceFromHome.toFixed(2));
+		$(panel, '.title').html('<h2>'+short_title+'</h2><p>'+long_title+'</p>');
+		// distanceFromHome.toFixed(2);
+		panel.prepend('<div class="stats"><p class="distance">'+distanceFromHome.toFixed(2)+'<small>km</small></p></div>');
 
 		if (data['products']['solarPanels']) {
 			console.log("wind");
@@ -75,7 +77,7 @@ function computeCardsHelp(data, distanceFromHome, realPlace)
 			top: 300
 		}, 300, 'easeOutElastic');
 
-		$('#map').css('top',-280);
+		$('#map').css('top',-150);
 		$('.overlay').addClass('focus');
 		// document.getElementById("map").style.marginTop = "-150px";
 		
