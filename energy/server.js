@@ -79,34 +79,30 @@ client.on('error', function(err) {
 
 //put information into database
 var lazy = require("lazy");
+/*
 var file = "./data.json";
 new lazy(fs.createReadStream(file))
 	.lines
     .forEach(function(line){
     	var data = JSON.parse(line);
      	var value = JSON.stringify(data["properties"]);
-
      	client.set(data["id"], value);
-     	//console.log(data["id"]);
-		/*
-		client.get(data["id"], function (err, value){
-			if (err) throw err;
-			var jsonData = JSON.parse(value);
-			console.log(jsonData);
-		}); */
      }
  );
-
-file = "./closest.json";
+*/
+var file = "./closest.json";
 var closest=[];
 new lazy(fs.createReadStream(file))
 	.lines
     .forEach(function(line){
     	var value = JSON.parse(line);
+    	//console.log(value);
     	//console.log(value["value"]);
-    	closest[value["value"]]= value["key"];
+    	closest[value["key"]]= value["value"];
+
      }
 );
+//console.log("HI"+closest["44-79"]);
 
 //socket.io - set up communication between client/server
 var socketio = require ('socket.io');
@@ -124,6 +120,7 @@ io.sockets.on('connection', function(socket){
 
 	socket.on("closest", function(location){
 		console.log("closest request for:"+location);
+		console.log(" is:"+closest[location]);
 		socket.emit("closest", closest[location]);
 
 
