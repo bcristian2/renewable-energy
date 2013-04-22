@@ -1,0 +1,16 @@
+{
+  "name": "SafeHouse",
+  "subdomain": "SafeHouse",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "version": "0.0.0-2",
+  "engines": {
+    "node": "0.8.x"
+  },
+  "dependencies": {
+    "mime": "~1.2.9",
+    "lazy": "~1.0.9",
+    "socket.io": "~0.9.14"
+  }
+}
