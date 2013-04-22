@@ -120,7 +120,7 @@ body {
 					top: 0;
 					right: 0;
 					left: 0;
-					background: url(../images/splashBg.jpg) no-repeat;
+					background: url(../images/splashBG.jpg) no-repeat;
 					background-size: cover;
 					z-index: 100;
 					border-bottom: 10px solid white;
