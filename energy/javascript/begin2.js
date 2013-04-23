@@ -77,7 +77,7 @@ function computeCardsHelp(data, distanceFromHome, realPlace)
 			top: 300
 		}, 300, 'easeOutElastic');
 
-		$('#map').css('top',-150);
+		$('#map').addClass('focused');//css('top',-150);
 		$('.overlay').addClass('focus');
 		// document.getElementById("map").style.marginTop = "-150px";
 		

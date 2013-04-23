@@ -22,12 +22,12 @@
 
   <script>
     $(document).ready(function(){
-      window.addEventListener("load",function() {
-        $('.intro').height($(window).height()+50);
-        setTimeout(function(){
-          window.scrollTo(0, 1);
-        }, 0);
-      });
+      // window.addEventListener("load",function() {
+      //   $('.intro').height($(window).height()+50);
+      //   setTimeout(function(){
+      //     window.scrollTo(0, 1);
+      //   }, 0);
+      // });
 
       var makeWaves = function(count) {
 
@@ -43,6 +43,11 @@
       makeWaves(3);
 
       $('.intro button').click(function(){
+        $('.intro').height($(window).height());
+        setTimeout(function(){
+          window.scrollTo(0, 1);
+        }, 0);
+
         $(this).addClass('active');
         var height = $('.intro').height();
         $('.intro').delay(1000).animate({
@@ -51,6 +56,8 @@
         }, 1500, 'easeInOutQuint', function(){
           $(this).hide();
         });
+
+        // $('.pinLocation').wrap('<div class="pinLocationWrap" />');
      
 
       })

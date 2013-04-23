@@ -40,9 +40,10 @@ $(document).ready(function() {
 		var greenIcon = L.icon({
 		    iconUrl: 'images/marker.png',
 
-		    iconSize:     [30, 48], // size of the icon
-		    iconAnchor:   [15, 60], // point of the icon which will correspond to marker's location
-		    popupAnchor:  [15, 0] // point from which the popup should open relative to the iconAnchor
+		    iconSize:     	[30, 48], // size of the icon
+		    iconAnchor:   	[15, 48], // point of the icon which will correspond to marker's location
+		    popupAnchor:  	[15, 0], // point from which the popup should open relative to the iconAnchor
+		    className: 		'pinLocation'
 		});
 
 		var userLocation = L.icon({
