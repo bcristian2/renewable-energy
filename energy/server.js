@@ -8,9 +8,9 @@ var cache = ""; //contents of cached files are stored
 //Given a JSON string from the server, determine the number of solar panels and wind turbines required 
 function findNumProducts(jsonStr){
 
-	var obj=eval("(" + jsonStr + ')');
-	solarMonths=obj["solar"]["value"];
-	windMonths=obj["wind"]["value"];
+	//var obj=eval("(" + jsonStr + ')');
+	solarMonths=jsonStr["solar"]["value"];
+	windMonths=jsonStr["wind"]["value"];
 
 	//minMonth is the lowest value of monthly values
 	var minMonth=0;
@@ -147,41 +147,28 @@ server.listen(8080, function(){
 });
 
 //redis server
+/*
 var redis = require('redis'),
 	client = redis.createClient(6379,'127.0.0.1');
 
 client.on('error', function(err) {
 	console.log('Error '+ err);	
 });
-
-//put information into database
+*/
+//put information into memory
 var lazy = require("lazy");
-
+var database= [];
 var file = "./data.json";
 new lazy(fs.createReadStream(file))
 	.lines
     .forEach(function(line){
     	var data = JSON.parse(line);
-     	var value = JSON.stringify(data["properties"]);
-     	client.set(data["id"], value);
+     	//var value = JSON.stringify(data["properties"]);
+     	database[data["id"]] = data["properties"]; 
+     	//console.log(".");
+     	//client.set(data["id"], value);
      }
  );
-
-/*
-var file = "./closest.json";
-var closest=[];
-new lazy(fs.createReadStream(file))
-	.lines
-    .forEach(function(line){
-    	var value = JSON.parse(line);
-    	//console.log(value);
-    	//console.log(value["value"]);
-    	closest[value["key"]]= value["value"];
-
-     }
-);
-*/
-//console.log("HI"+closest["44-79"]);
 
 //socket.io - set up communication between client/server
 var socketio = require ('socket.io');
@@ -190,22 +177,6 @@ io.set('log level', 1);
 
 io.sockets.on('connection', function(socket){
 
-	/*
-	socket.on("dataRequest", function(location){
-		console.log("dataRequest for:"+location);
-		client.get(location, function (err, value){
-			socket.emit("dataRequest", value);
-		});
-	});
-
-	socket.on("closest", function(location){
-		console.log("closest request for:"+location);
-		console.log(" is:"+closest[location]);
-		socket.emit("closest", closest[location]);
-
-
-	});
-*/
 
 	socket.on("request", function(original){
 		var location = new Object();
@@ -220,17 +191,15 @@ io.sockets.on('connection', function(socket){
 				path: '/oceanJSON?lat='+location.latitude+'&lng='+location.longitude+'&username=mtriff',
 				method: 'GET'
 		}; 
-		//console.log(options);
 		//api.geonames.org/oceanJSON?lat=46&lng=46&username=mtriff
 		var req=http.request(options, function(res) {
-				//console.log(res);
-				//console.log('Status:'+res.statusCode);
+
 				res.setEncoding('utf8');
 				res.on('data', function (chunk){
-					//console.log("callback of res data");
-					//console.log(chunk);
+					
 					chunk = JSON.parse(chunk);
 
+					console.log("is Ocean? ", chunk["ocean"]);
 					if(chunk["ocean"]){
 						socket.emit('request', false);
 					} else { //valid point, start get random valid location
@@ -242,8 +211,28 @@ io.sockets.on('connection', function(socket){
 							var latitude = location.latitude + random1;
 							var longitude = location.longitude + random2;
 							var locationID = String(latitude).concat(String(longitude));
-							console.log(locationID);
+							console.log("getValidPoint() with:",locationID);
 
+							
+							if (database[locationID]) {
+								console.log(" found validPoint");
+								var productsJSON = findNumProducts(database[locationID]);
+								var result = {
+									"id":locationID,
+									"latitude":original.latitude,
+									"longitude":original.longitude,
+									"products":{
+										"ocean":false,
+										"solarPanels":productsJSON["solarPanels"],
+										"windTurbines":productsJSON["windTurbines"]
+									},
+								};
+								socket.emit("request", result);
+							} else {
+								console.log("no data");
+								getValidPoint();
+							}
+							/* for database
 							client.get(locationID, function(err, value){
 								if (err || !value) {
 									console.log("no data");
@@ -268,7 +257,7 @@ io.sockets.on('connection', function(socket){
 									};
 									socket.emit("request", result);
 								}
-							});
+							}); */
 						}
 						getValidPoint();
 					}
@@ -277,7 +266,7 @@ io.sockets.on('connection', function(socket){
 		});
 		req.addListener("response", function (data){
 			console.log("SUSCCSES");
-			console.log(data);
+			//console.log(data);
 		});
 		req.end();
 		
